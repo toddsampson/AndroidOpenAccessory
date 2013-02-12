@@ -18,9 +18,9 @@ public class WroxAccessory {
 	public WroxAccessory(Context context) {
 		mContext = context;
 	}
-	public void connect(int mode, Connection connection, String ident) throws IOException {
+	public void connect(int mode, Connection connection) throws IOException {
 		mMonitoringThread = new MonitoringThread(mode, connection);
-		mMonitoringThread.mConnection.getOutputStream().write(MQTT.connect(ident));
+		mMonitoringThread.mConnection.getOutputStream().write(MQTT.connect());
 	}
 	public void publish(String topic, byte[] message) throws IOException {
 		new WriteHelper().execute(MQTT.publish(topic, message));
