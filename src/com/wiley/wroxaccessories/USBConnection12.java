@@ -11,27 +11,28 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.ParcelFileDescriptor;
 
-public class UsbConnection12 extends Connection {
+public class USBConnection12 extends Connection {
 	private FileInputStream mFileInputStream;
 	private FileOutputStream mFileOutputStream;
 	private ParcelFileDescriptor mFileDescriptor;
 	private UsbAccessory mUsbAccessory; //????
 	private Activity mActivity;
-	public UsbConnection12(UsbManager usbmanager) {
+	public USBConnection12(UsbManager usbmanager) {
 		UsbAccessory[] accessories = usbmanager.getAccessoryList();
 		UsbAccessory accessory = (accessories == null ? null : accessories[0]);
 		if (accessory != null) {
 			mUsbAccessory = accessory;
-			if (manager.hasPermission(mUsbAccessory)) {
+			if (usbmanager.hasPermission(mUsbAccessory)) {
 				mFileDescriptor = usbmanager.openAccessory(accessory);
 				if (mFileDescriptor != null) {
-					FileDescriptor mFileDescriptor = mFileDescriptor.getFileDescriptor();
-					mFileInputStream = new FileInputStream(mFileDescriptor);
-					mFileOutputSteam = new FileOutputStream(mFileDescriptor);
+					FileDescriptor fileDescriptor = mFileDescriptor.getFileDescriptor();
+					mFileInputStream = new FileInputStream(fileDescriptor);
+					mFileOutputStream = new FileOutputStream(fileDescriptor);
 				}
 			}
 		}
@@ -65,6 +66,6 @@ public class UsbConnection12 extends Connection {
 				
 			}
 		}
-	}
+	};
 
 }
