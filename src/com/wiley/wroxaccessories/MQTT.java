@@ -54,7 +54,7 @@ public class MQTT {
 		case SUBSCRIBE:
 			message_id = Integer.parseInt(params[0]);
 			variableHeader.write((message_id >> 8) & 0xFF);
-			variableHeader.write(message_id & 0xff);
+			variableHeader.write(message_id & 0xFF);
 			break;
 		case PINGREQ:
 			// PINGREQ Doesn't have a variable header.
