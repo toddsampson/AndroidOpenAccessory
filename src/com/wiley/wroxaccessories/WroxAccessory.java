@@ -13,8 +13,13 @@ public class WroxAccessory {
 	private static final int USB_ACCESSORY_10 = 0;
 	private static final int USB_ACCESSORY_12 = 1;
 	private static final int BT_ACCESSORY = 3;
+	
+	private static final String SUBSCRIBE = "FIX ME SUBSCRIBE"; //TODO give real value
+	
 	private Context mContext;
 	private MonitoringThread mMonitoringThread;
+	private BroadcastReceiver receiver;
+	
 	public WroxAccessory(Context context) {
 		mContext = context;
 	}
@@ -33,7 +38,6 @@ public class WroxAccessory {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(sub);
 		mContext.registerReceiver(receiver, filter);
-		return sub;
 	}
 	public void unsubscribe(String topic, int id) throws IOException {
 		new WriteHelper().execute(MQTT.unsubscribe(id, topic));
@@ -73,7 +77,7 @@ public class WroxAccessory {
 						mContext.sendBroadcast(broadcast);
 					} else if (msg.type == MQTT.SUBSCRIBE) {
 						String topic = new String(msg.payload);
-						if (!subscriptions.contain(topic))
+						if (!subscriptions.contains(topic))
 							subscriptions.add(topic);
 					} else if (msg.type == MQTT.UNSUBSCRIBE) {
 						String topic = new String(msg.payload);
