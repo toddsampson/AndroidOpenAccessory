@@ -152,6 +152,11 @@ public class MQTT {
 		return encode(SUBSCRIBE, false, AT_LEAST_ONCE, false, payload.toByteArray(), 
 				Integer.toString(subscribe_id));
 	}
+	
+	public static byte[] unsubscribe(int id, String topic) {
+		//TODO implement
+		return null;
+	}
 	public static byte[] ping() throws IOException {
 		return encode(PINGREQ, false, 0, false, new byte[0]);
 	}
