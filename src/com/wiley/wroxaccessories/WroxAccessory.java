@@ -10,9 +10,10 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 
 public class WroxAccessory {
-	private static final int USB_ACCESSORY_10 = 0;
-	private static final int USB_ACCESSORY_12 = 1;
-	private static final int BT_ACCESSORY = 3;
+	// TODO Make these private and use a proper getter/setter
+	public static final int USB_ACCESSORY_10 = 0;
+	public static final int USB_ACCESSORY_12 = 1;
+	public static final int BT_ACCESSORY = 3;
 	
 	private static final String SUBSCRIBE = "FIX ME SUBSCRIBE"; //TODO give real value
 	
