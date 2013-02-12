@@ -22,8 +22,14 @@ public class MQTT {
 	protected static final int PINGRESP = 13;
 	protected static final int DISCONNECT = 14;
 	
+	// QoS Values
+	protected static final int AT_MOST_ONCE = 0;
+	protected static final int AT_LEAST_ONCE = 1;
+	protected static final int EXACTLY_ONCE = 2;
+	
 	protected static byte[] encode(int type, boolean retain, int qos, boolean dup,
-			byte[] payload, String... params) {
+			byte[] payload, String... params) throws UnsupportedEncodingException, IOException 
+	{
 		ByteArrayOutputStream mqtt = new ByteArrayOutputStream();
 		mqtt.write((byte) ((retain ? 1 : 0) | qos << 1 | (dup ? 1 : 0) << 3 | type << 4));
 		ByteArrayOutputStream variableHeader = new ByteArrayOutputStream();
@@ -93,33 +99,33 @@ public class MQTT {
 		case CONNECT:
 			int protocol_name_len = (message[i++] << 8 | message[i++]);
 			mqtt.variableHeader.put("protocol_name", new String(message, i, protocol_name_len));
-			mqtt.variableHeader.put("protocol_version", message[i++]);
+			mqtt.variableHeader.put("protocol_version", String.valueOf(message[i++]));
 			mqtt.variableHeader.put("has_username", 
-					((message[i++] << 7) & 0x01) == 0 ? false : true);
+					String.valueOf(((message[i++] << 7) & 0x01) == 0 ? false : true));
 			mqtt.variableHeader.put("has_password", 
-					((message[i] << 6) & 0x01) == 0 ? false : true);
+					String.valueOf(((message[i] << 6) & 0x01) == 0 ? false : true));
 			mqtt.variableHeader.put("will_retain", 
-					((message[i] << 5) & 0x01) == 0 ? false : true);
-			mqtt.variableHeader.put("will_qos", ((message[i] << 3) & 0x03));
-			mqtt.variableHeader.put("will", ((message[i] << 2) & 0x01) == 0 ? false : true);
+					String.valueOf(((message[i] << 5) & 0x01) == 0 ? false : true));
+			mqtt.variableHeader.put("will_qos", String.valueOf(((message[i] << 3) & 0x03)));
+			mqtt.variableHeader.put("will", String.valueOf(((message[i] << 2) & 0x01) == 0 ? false : true));
 			mqtt.variableHeader.put("clean_session", 
-					((message[i] << 1) & 0x01) == 0 ? false : true);
+					String.valueOf(((message[i] << 1) & 0x01) == 0 ? false : true));
 			int keep_alive_len = (message[i++] << 8 | message[i++]);
 			mqtt.variableHeader.put("keep_alive", new String(message, i, keep_alive_len));
 			break;
 		case PUBLISH:
 			int topic_name_len = (message[i++] << 8 | message[i++]);
 			mqtt.variableHeader.put("topic_name", new String(message, i, topic_name_len));
-			mqtt.variableHeader.put("message_id", (message[i++] << 8 | message[i++]));
+			mqtt.variableHeader.put("message_id", String.valueOf((message[i++] << 8 | message[i++])));
 			break;
 		case SUBSCRIBE:
-			mqtt.variableHeader.put("message_id", (message[i++] << 8 | message[i++]));
+			mqtt.variableHeader.put("message_id", String.valueOf((message[i++] << 8 | message[i++])));
 			break;
 		case PINGREQ:
 			// PINGREQ has no variable header
 			break;
 		}
-		ByteArrayOutputSteam payload = new ByteArrayOutputStream();
+		ByteArrayOutputStream payload = new ByteArrayOutputStream();
 		for(int b = i; b < message.length; b++)
 			payload.write(message[b]);
 		mqtt.payload = payload.toByteArray();
