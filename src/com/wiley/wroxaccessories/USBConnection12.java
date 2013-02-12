@@ -15,13 +15,13 @@ import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.ParcelFileDescriptor;
 
-public class USBConnection12 extends Connection {
+public class UsbConnection12 extends Connection {
 	private FileInputStream mFileInputStream;
 	private FileOutputStream mFileOutputStream;
 	private ParcelFileDescriptor mFileDescriptor;
 	private UsbAccessory mUsbAccessory; //????
 	private Activity mActivity;
-	public USBConnection12(UsbManager usbmanager) {
+	public UsbConnection12(UsbManager usbmanager) {
 		UsbAccessory[] accessories = usbmanager.getAccessoryList();
 		UsbAccessory accessory = (accessories == null ? null : accessories[0]);
 		if (accessory != null) {
