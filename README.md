@@ -1,7 +1,5 @@
 AndroidOpenAccessory
 ====================
 
-Basic Android Open Accessory library and the P2PMQTT Library forked from the Wrox Android Open Accessory Book (http://github.com/aoabook).  Still a work in process porting them to our needs.
-
-Major thanks to @donthorp for helping to get these libraries working!
+*** NOTE: This repo is no longer used...  Active development is now being done here: https://github.com/ardrobot/AndroidOpenAccessory ***
 
