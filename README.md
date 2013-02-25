@@ -1,6 +1,7 @@
-WroxAccessory
-=============
+AndroidOpenAccessory
+====================
 
-P2PMQTT Library from the Wrox Android Open Accessory Book
+Basic Android Open Accessory library and the P2PMQTT Library forked from the Wrox Android Open Accessory Book (http://github.com/aoabook).  Still a work in process porting them to our needs.
 
-I couldn't find the P2PMQTT library online so I'm pushing the code I typed (and "pasted" in the book brach) to help debug the errors I'm getting.  I asked the author if the library was available online already and he responded saying he would post it.  In the mean time, anyone else that is stuck like me can help get the library debugged here.
+Major thanks to @donthorp for helping to get these libraries working!
+
