@@ -1,4 +1,4 @@
-package com.wiley.wroxaccessories;
+package com.ardrobot.androidopenaccessory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,16 +8,22 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 
-public class BTConnection extends Connection {
+public class BluetoothConnection extends Connection {
+	private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
 	private BluetoothSocket mBluetoothSocket;
 	private BluetoothAdapter mBluetoothAdapter;
-	private UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-	public BTConnection(String address) {
+	
+	public BluetoothConnection(String mac) {
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		BluetoothDevice mDevice = mBluetoothAdapter.getRemoteDevice(address);
+
+		BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(mac);
+
 		try {
-			mBluetoothSocket = mDevice.createInsecureRfcommSocketToServiceRecord(uuid);
-			mBluetoothSocket.connect();
+			mBluetoothDevice.createInsecureRfcommSocketToServiceRecord(uuid);
+
+//			mBluetoothSocket = mBluetoothDevice.createInsecureRfcommSocketToServiceRecord(uuid);
+//			mBluetoothSocket.connect();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

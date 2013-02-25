@@ -1,5 +1,8 @@
-package com.wiley.wroxaccessories;
+package com.ardrobot.androidopenaccessory;
+
+import java.util.HashMap;
 import java.util.Map;
+
 public class MQTTMessage {
 	// TODO Make variables private and create getting/setter methods
 	public int type;
@@ -7,7 +10,10 @@ public class MQTTMessage {
 	public int QoS;
 	public boolean retain;
 	public int remainingLength;
-	public Map<String, String> variableHeader;
+
+	// Note: This is String, Object, not String, String as in the aoabook
+	public Map<String, Object> variableHeader = new HashMap<String, Object>();
+
 	public byte[] payload;
 }
 
